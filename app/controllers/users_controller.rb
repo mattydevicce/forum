@@ -21,6 +21,7 @@ class UsersController < ApplicationController
       #proceed with login
       if @user.authenticate(params[:password])
         #password is good
+        session[:user_id] = @user.id
         redirect_to topics_path
       else
         #password is bad
@@ -50,7 +51,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        cookies[:user_id] = @user.id
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
