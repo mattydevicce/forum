@@ -25,8 +25,9 @@ class TopicsController < ApplicationController
   # POST /topics.json
   def create
     @topic = Topic.new(topic_params)
-
-    @topic.user_id = current_user.id
+    if session[:user_id]
+      @topic.user_id = current_user.id
+    end
     respond_to do |format|
       if @topic.save
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }

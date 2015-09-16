@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   resources :topics
   resources :comments
   resources :users
-  get '/login' => 'users#login'
+  get '/login'  => 'users#login'
   post '/login' => 'users#login_post'
+  get '/logout' => 'users#logout'
   root 'topics#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
