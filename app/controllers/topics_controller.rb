@@ -11,6 +11,8 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @comment = Comment.new
+    @users = User.all
   end
 
   # GET /topics/new

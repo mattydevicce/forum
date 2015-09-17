@@ -10,5 +10,43 @@
   <%= @topic.content %>
 </p>
 
+<p>
+  <strong>Author:</strong>
+  <%= @users.find(@topic.user_id).username %>
+</p>
+
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this topic from being saved:</h2>
+
+      <ul>
+      <% @comement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :topic_id, :value => @topic.id %>
+    <%= f.hidden_field :user_id, :value => session[:user_id] %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<p>
+  <strong>Comments:</strong>
+  <% @topic.comments.each do |comment| %>
+    <p><%= comment.content %></p>
+    <p>By: <%= @users.find(comment.user_id).username %></p>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>
