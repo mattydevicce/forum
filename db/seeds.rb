@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+muscles = ['shoulders', 'chest', 'back', 'biceps', 'triceps', 'abs', 'glutes', 'quads', 'hamstrings', 'calves', 'other' ]
+
+muscles.each do |muscle|
+  Category.create({subject: muscle})
+end

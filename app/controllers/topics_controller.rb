@@ -6,6 +6,7 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
     @users = User.all
+    @categorys = Category.all
   end
 
   # GET /topics/1
@@ -29,16 +30,20 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     if session[:user_id]
-      @topic.user_id = current_user.id
+      @topic.user_id = session[:user_id]
     end
-    respond_to do |format|
-      if @topic.save
-        format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
-        format.json { render :show, status: :created, location: @topic }
-      else
-        format.html { render :new }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
+    if @topic.valid?
+      respond_to do |format|
+        if @topic.save
+          format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
+          format.json { render :show, status: :created, location: @topic }
+        else
+          format.html { render :new }
+          format.json { render json: @topic.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      render :new
     end
   end
 
@@ -74,6 +79,6 @@ class TopicsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
-      params.require(:topic).permit(:title, :content)
+      params.require(:topic).permit(:title, :content, :category_id)
     end
 end
