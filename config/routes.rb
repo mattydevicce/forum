@@ -1,13 +1,7 @@
 Rails.application.routes.draw do
-  resources :topics do
-    member do
-      post 'muscleup_topic'
-    end
-  end
-  resources :comments do
-    member do
-      post 'muscleup_comment'
-    end
+  resources :topics
+  resources :comments
+
   end
   resources :users
   get '/login'  => 'users#login'
