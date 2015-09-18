@@ -1,12 +1,21 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
+  def muscleup_topic
+    @muscleup = MuscleUp.find_by(comment_id: nil, topic_id: params[:id])
+    @muscleup.total += 1
+    @muscleup.save
+    redirect_to topics_path
+  end
+
   # GET /topics
   # GET /topics.json
   def index
     @topics = Topic.all
     @users = User.all
     @categorys = Category.all
+    @muscleups = MuscleUp.all
+    sort_topics  
   end
 
   # GET /topics/1
@@ -14,6 +23,7 @@ class TopicsController < ApplicationController
   def show
     @comment = Comment.new
     @users = User.all
+    @muscleups = MuscleUp.all
   end
 
   # GET /topics/new
@@ -35,6 +45,8 @@ class TopicsController < ApplicationController
     if @topic.valid?
       respond_to do |format|
         if @topic.save
+          @muscleup = MuscleUp.new(total: 0, topic_id: @topic.id)
+          @muscleup.save
           format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
           format.json { render :show, status: :created, location: @topic }
         else
@@ -71,6 +83,7 @@ class TopicsController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
@@ -81,4 +94,9 @@ class TopicsController < ApplicationController
     def topic_params
       params.require(:topic).permit(:title, :content, :category_id)
     end
+
+    def sort_topics
+      @topics = @topics.sort_by { |topic| -topic.comments.count }
+    end
+
 end

@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :topic
-  validates :content, presence: true
+  has_one :user
+  has_one :topic
+  validates :user_id, :content, presence: true
 end

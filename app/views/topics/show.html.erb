@@ -45,6 +45,9 @@
   <% @topic.comments.each do |comment| %>
     <p><%= comment.content %></p>
     <p>By: <%= @users.find(comment.user_id).username %></p>
+    <p>Created at: <%= comment.created_at %></p>
+    <p>MuscleUps: <%= @muscleups.find_by(comment_id: comment.id, topic_id: comment.topic_id).total %></p>
+    <p><%= button_to '+1', muscleup_comment_comment_path(comment), method: :post %></p>
   <% end %>
 </p>
 

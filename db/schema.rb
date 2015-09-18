@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917161047) do
+ActiveRecord::Schema.define(version: 20150918133333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20150917161047) do
 
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "muscle_ups", force: :cascade do |t|
+    t.integer  "total"
+    t.integer  "comment_id"
+    t.integer  "topic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "muscle_ups", ["comment_id"], name: "index_muscle_ups_on_comment_id", using: :btree
+  add_index "muscle_ups", ["topic_id"], name: "index_muscle_ups_on_topic_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.integer  "user_id"
@@ -58,4 +69,6 @@ ActiveRecord::Schema.define(version: 20150917161047) do
 
   add_foreign_key "comments", "topics"
   add_foreign_key "comments", "users"
+  add_foreign_key "muscle_ups", "comments"
+  add_foreign_key "muscle_ups", "topics"
 end

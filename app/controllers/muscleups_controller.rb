@@ -1,0 +1,2 @@
+class MuscleUpsController < ApplicationController
+end
