@@ -78,7 +78,11 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   # DELETE /topics/1.json
   def destroy
-
+    @topic.comments.each do |comment|
+      MuscleUp.find_by(topic_id: @topic.id, comment_id: comment.id).destroy
+      comment.destroy
+    end
+    MuscleUp.find_by(topic_id: @topic.id, comment_id: nil).destroy
     @topic.destroy
     respond_to do |format|
       format.html { redirect_to topics_url, notice: 'Topic was successfully destroyed.' }

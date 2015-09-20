@@ -17,3 +17,13 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', topics_path %>
+
+<h3><%= @user.name %>'s Comments</h3>
+<ul>
+<% @user.comments.each do |comment| %>
+  <li><%= markdown(comment.content) %>
+      on <%= link_to Topic.find(comment.topic_id).title, topic_path(comment.topic_id) %>
+      <br/>
+      category <%= Category.find(Topic.find(comment.topic_id)).subject %></li>
+  <br/>
+<% end %>

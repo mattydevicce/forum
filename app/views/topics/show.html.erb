@@ -46,7 +46,7 @@
   <br />
 <% @topic.comments.each do |comment| %>
   <p>By: <%= link_to @users.find(comment.user_id).username, user_path(comment.user_id) %></p>
-  <p><%= comment.content %></p>
+  <p><%= markdown(comment.content) %></p>
   <p>Created at: <%= comment.created_at %></p>
   <p class="muscleups">MuscleUps: <%= @muscleups.find_by(comment_id: comment.id, topic_id: comment.topic_id).total %> </p>
   <div class="muscleup-button"><%= button_to '+1', muscleup_comment_comment_path(comment), method: :post %></div>
@@ -56,4 +56,5 @@
 
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>
+<%= link_to 'Destroy', topic_path(@topic), method: :delete, data: { confirm: 'Are you sure?' } %>
 </div>

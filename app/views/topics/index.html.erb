@@ -1,19 +1,15 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Topics</h1>
+<div class="container">
+<h1>Suns Out Guns Out Discussion Forum</h1>
 <%= link_to 'New Topic', new_topic_path %>
 
 <% @categorys.each do |category| %>
   <table class="table table-hover table-bordered">
     <thead>
-      <h2><%= category.subject %></h2>
       <tr>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Author</th>
-        <th>MuscleUps</th>
-        <th>Created At</th>
-        <th>Total Comments</th>
+        <th class="topic-muscleups-title">MuscleUps</th>
+        <th class="topic-content-title"><%= category.subject.capitalize %> Discussion</th>
+        <th class="topic-comments-title">Total Comments</th>
       </tr>
     </thead>
 
@@ -21,21 +17,15 @@
       <% @topics.each do |topic| %>
         <% if topic.category_id == category.id %>
         <tr>
-          <td><%= link_to topic.title, topic_path(topic) %></td>
-          <td><%= topic.content %></td>
-          <td><%= @users.find(topic.user_id).username %></td>
-          <td><%= @muscleups.find_by(topic_id: topic.id).total %></td>
-          <td><%= topic.created_at %></td>
-          <td><%= topic.comments.count %></td>
-          <td><%= button_to '+1', muscleup_topic_topic_path(topic), method: :post %></td>
-          <td><%= link_to 'Show', topic %></td>
-          <td><%= link_to 'Edit', edit_topic_path(topic) %></td>
-          <td><%= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td class="topic-muscleups"><div class="mu-button"><%= button_to '+1', muscleup_topic_topic_path(topic), method: :post %></div><div class="mu-show">
+          <%= @muscleups.find_by(topic_id: topic.id).total %></div></td>
+          <td class="topic-content"><h4><%= link_to topic.title, topic_path(topic) %></h4><%= markdown(topic.content) %><br/>
+          Posted by: <%= link_to @users.find(topic.user_id).username, user_path(@users.find(topic.user_id)) %>  <%= time_ago_in_words topic.created_at %> ago</td>
+          <td class="topic-comments"><div class="topic-c"><%= topic.comments.count %></div></td>
         </tr>
         <% end %>
       <% end %>
     </tbody>
   </table>
 <% end %>
-<br>
-
+</div>

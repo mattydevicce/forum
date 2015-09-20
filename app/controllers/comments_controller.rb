@@ -22,7 +22,16 @@ class CommentsController < ApplicationController
       @muscleup.save
       redirect_to topic_path(@comment.topic_id)
     else
-      redirect_to topic_path #I think I need topic_path(:id) where :id should be :topic_id but it aint working
+      redirect_to login_path
+    end
+  end
+
+  def destroy
+    @muscleup.comment.destroy
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to topics_url, notice: 'Comment was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
