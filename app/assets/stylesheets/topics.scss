@@ -1,3 +1,21 @@
 // Place all the styles related to the Topics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.topic {
+  text-align: center;
+}
+
+.content-container {
+  margin: 0 auto;
+  background-color: #eaeaea;
+  border: 1px solid black;
+  text-align: left;
+  max-width: 75%;
+  border-radius: 6px;
+  min-height: 5em;
+}
+
+.content {
+  margin: 8px 15px;
+}

@@ -3,8 +3,10 @@ class TopicsController < ApplicationController
 
   def muscleup_topic
     @muscleup = MuscleUp.find_by(comment_id: nil, topic_id: params[:id])
+    # @muscleup = MuscleUp.find(params[:id])
     @muscleup.total += 1
     @muscleup.save
+    # binding.pry
     redirect_to topics_path
   end
 
@@ -76,6 +78,7 @@ class TopicsController < ApplicationController
   # DELETE /topics/1
   # DELETE /topics/1.json
   def destroy
+
     @topic.destroy
     respond_to do |format|
       format.html { redirect_to topics_url, notice: 'Topic was successfully destroyed.' }

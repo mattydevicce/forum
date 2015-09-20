@@ -20,9 +20,9 @@ class CommentsController < ApplicationController
       @comment.save
       @muscleup = MuscleUp.new(total: 0, comment_id: @comment.id, topic_id: @comment.topic_id)
       @muscleup.save
-      redirect_to topics_path
+      redirect_to topic_path(@comment.topic_id)
     else
-      redirect_to topics_path #I think I need topic_path(:id) where :id should be :topic_id but it aint working
+      redirect_to topic_path #I think I need topic_path(:id) where :id should be :topic_id but it aint working
     end
   end
 

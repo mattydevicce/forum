@@ -4,7 +4,7 @@
 <%= link_to 'New Topic', new_topic_path %>
 
 <% @categorys.each do |category| %>
-  <table>
+  <table class="table table-hover table-bordered">
     <thead>
       <h2><%= category.subject %></h2>
       <tr>
@@ -14,7 +14,6 @@
         <th>MuscleUps</th>
         <th>Created At</th>
         <th>Total Comments</th>
-        <th colspan="3"></th>
       </tr>
     </thead>
 

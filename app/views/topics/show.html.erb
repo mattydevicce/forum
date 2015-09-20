@@ -1,20 +1,21 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
+<div class="container">
+<div class="topic">
+<h3 class="title">
   <%= @topic.title %>
-</p>
+</h3>
 
-<p>
-  <strong>Content:</strong>
-  <%= @topic.content %>
-</p>
+<div class="content-container">
+  <div class="content">
+    <%= @topic.content %>
+  </div>
+</div>
 
-<p>
+<p class="author">
   <strong>Author:</strong>
   <%= @users.find(@topic.user_id).username %>
 </p>
-
+</div>
 <%= form_for(@comment) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
@@ -29,8 +30,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_field :content %>
+    <%= f.label 'Create a comment' %><br>
+    <%= f.text_area :content %>
   </div>
   <div class="field">
     <%= f.hidden_field :topic_id, :value => @topic.id %>
@@ -40,16 +41,19 @@
     <%= f.submit %>
   </div>
 <% end %>
-<p>
-  <strong>Comments:</strong>
-  <% @topic.comments.each do |comment| %>
-    <p><%= comment.content %></p>
-    <p>By: <%= @users.find(comment.user_id).username %></p>
-    <p>Created at: <%= comment.created_at %></p>
-    <p>MuscleUps: <%= @muscleups.find_by(comment_id: comment.id, topic_id: comment.topic_id).total %></p>
-    <p><%= button_to '+1', muscleup_comment_comment_path(comment), method: :post %></p>
-  <% end %>
-</p>
+  <br />
+  <h4>Comments:</h4>
+  <br />
+<% @topic.comments.each do |comment| %>
+  <p>By: <%= link_to @users.find(comment.user_id).username, user_path(comment.user_id) %></p>
+  <p><%= comment.content %></p>
+  <p>Created at: <%= comment.created_at %></p>
+  <p class="muscleups">MuscleUps: <%= @muscleups.find_by(comment_id: comment.id, topic_id: comment.topic_id).total %> </p>
+  <div class="muscleup-button"><%= button_to '+1', muscleup_comment_comment_path(comment), method: :post %></div>
+  <br />
+  <br />
+<% end %>
 
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>
+</div>
