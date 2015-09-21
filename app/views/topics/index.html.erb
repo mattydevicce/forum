@@ -2,7 +2,9 @@
 <div class="container">
 <h1>Suns Out Guns Out Discussion Forum</h1>
 <%= link_to 'New Topic', new_topic_path %>
-
+<div class="topic-sorter">
+<%= select_tag(:sort, options_for_select([ 'Newest Topic', 'Most Muscleups' ])) %>
+</div>
 <% @categorys.each do |category| %>
   <table class="table table-hover table-bordered">
     <thead>

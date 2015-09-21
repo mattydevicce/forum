@@ -1,6 +1,10 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
+  def sort
+    redirect_to topic_path(1)
+  end
+
   def muscleup_topic
     @muscleup = MuscleUp.find_by(comment_id: nil, topic_id: params[:id])
     # @muscleup = MuscleUp.find(params[:id])

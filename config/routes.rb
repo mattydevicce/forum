@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/login' => 'users#login_post'
   get '/logout' => 'users#logout'
   root 'topics#index'
+  get 'sort' => 'topics#sort'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
