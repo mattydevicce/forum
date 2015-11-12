@@ -36,6 +36,11 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'redcarpet'
 group :development, :test do
+  gem 'better_errors'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'ffaker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'pry'
